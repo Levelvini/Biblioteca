@@ -1,5 +1,6 @@
 package com.levelvini.biblioteca.service;
 
+import com.levelvini.biblioteca.exceptions.EmptyDataException;
 import com.levelvini.biblioteca.exceptions.ResourceNotFoundException;
 import com.levelvini.biblioteca.model.DTO.LivroDTO;
 import com.levelvini.biblioteca.model.Livro;
@@ -26,15 +27,18 @@ public class LivroService {
     }
 
     @Transactional
-    public Optional<List<LivroDTO>> getAll(){
-        Optional<List<Livro>> livros = Optional.of(livroRepository.findAll());
-        return Optional.of(Collections.singletonList(modelMapper.map(livros, LivroDTO.class)));
-        //retorna uma List imutavel!
+    public List<LivroDTO> getAll(){
+        List<Livro> livros = livroRepository.findAll();
+        if (livros.isEmpty()){
+            throw new EmptyDataException("você ainda não possui livros cadastrados");
+        }else {
+            return Collections.singletonList(modelMapper.map(livros, LivroDTO.class));
+        }
     }
 
     @Transactional
    public Optional<LivroDTO> getById(Long id){
-       Optional<Livro> livro = livroRepository.findById(id);
+       Livro livro = livroRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("o livro não pôde ser encontrado"));
        return Optional.ofNullable(modelMapper.map(livro, LivroDTO.class));
    }
 
@@ -56,4 +60,7 @@ public class LivroService {
         Livro livro = livroRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("o livro informado não existe"));
         livroRepository.delete(livro);
     }
+
+
+
 }
