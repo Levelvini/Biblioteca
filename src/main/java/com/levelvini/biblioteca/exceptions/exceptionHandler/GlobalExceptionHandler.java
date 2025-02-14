@@ -1,5 +1,6 @@
 package com.levelvini.biblioteca.exceptions.exceptionHandler;
 
+import com.levelvini.biblioteca.exceptions.EmptyDataException;
 import com.levelvini.biblioteca.exceptions.ResourceNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -23,5 +24,10 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(erro);
     }
 
-    
+    @ExceptionHandler(EmptyDataException.class)
+    public ResponseEntity<ErroResponse> handlerEmptyDataException(EmptyDataException ex){
+        ErroResponse erro = new ErroResponse(LocalDateTime.now(), ex.getMessage(), HttpStatus.NOT_FOUND.toString());
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(erro);
+    }
+    //EmptyDataException é desnecessária, podendo ser substituída pelo ResourseNotFoundException! o Uso é para fins de aprendizado!
 }
