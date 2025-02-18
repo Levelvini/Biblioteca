@@ -49,10 +49,11 @@ public class LivroService {
    }
 
    @Transactional
-   public Livro update(Long id,LivroDTO livroDTO){
+   public LivroDTO update(Long id,LivroDTO livroDTO){
     Livro livro = livroRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("O livro não pode ser encontrado"));
     modelMapper.map(livroDTO, livro);
-    return livroRepository.save(livro);
+    livro = livroRepository.save(livro);
+    return modelMapper.map(livro,LivroDTO.class);
     }
 
     @Transactional

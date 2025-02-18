@@ -41,16 +41,18 @@ public class AutorService {
     }
 
     @Transactional
-    public Autor save(AutorRequest autorRequest){
+    public AutorResponse save(AutorRequest autorRequest){
         Autor autor = modelMapper.map(autorRequest, Autor.class);
-        return autorRepository.save(autor);
+        Autor autorReturn = autorRepository.save(autor);
+        return modelMapper.map(autorReturn, AutorResponse.class);
     }
 
     @Transactional
-    public Autor update(Long id, AutorRequest autorRequest){
+    public AutorResponse update(Long id, AutorRequest autorRequest){
         Autor autor = autorRepository.findById(id).orElseThrow(()-> new ResourceNotFoundException("o autor a ser aualizado não foi encontrado"));
         modelMapper.map(autorRequest, autor);
-        return autorRepository.save(autor);
+        Autor autorReturn = autorRepository.save(autor);
+        return modelMapper.map(autorReturn, AutorResponse.class);
   }
 
   @Transactional
