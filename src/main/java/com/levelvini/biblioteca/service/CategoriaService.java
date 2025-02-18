@@ -27,7 +27,7 @@ public class CategoriaService {
     }
 
     @Transactional
-    public List<CategoriaDTO> getAll(){
+    public List<CategoriaDTO> findAll(){
         List<Categoria> categorias = categoriaRepository.findAll();
         if (categorias.isEmpty()){
             throw new EmptyDataException("você ainda não possui categorias cadastradas");
@@ -37,22 +37,23 @@ public class CategoriaService {
     }
 
     @Transactional
-    public Optional<CategoriaDTO> getById(Long id){
+    public Optional<CategoriaDTO> findById(Long id){
        Categoria categoria = categoriaRepository.findById(id).orElseThrow(()-> new ResourceNotFoundException("a categoria não pôde ser encontrada"));
        return Optional.ofNullable(modelMapper.map(categoria, CategoriaDTO.class));
     }
 
     @Transactional
-    public Categoria save(CategoriaDTO categoriaDTO){
-        Categoria categoria = modelMapper.map(categoriaDTO, Categoria.class);
-        return categoriaRepository.save(categoria);
+    public CategoriaDTO save(CategoriaDTO categoriaDTO){
+        Categoria categoria = categoriaRepository.save(modelMapper.map(categoriaDTO, Categoria.class));
+        return modelMapper.map(categoria, CategoriaDTO.class);
     }
 
     @Transactional
-    public Categoria update(Long id, CategoriaDTO categoriaDTO){
+    public CategoriaDTO update(Long id, CategoriaDTO categoriaDTO){
         Categoria categoria = categoriaRepository.findById(id).orElseThrow(()-> new ResourceNotFoundException("o objeto a ser atualiza não foi encontrado"));
         modelMapper.map(categoriaDTO, categoria);
-        return categoriaRepository.save(categoria);
+        Categoria categoriaUpdated = categoriaRepository.save(categoria);
+        return modelMapper.map(categoriaUpdated, CategoriaDTO.class);
     }
 
     @Transactional
