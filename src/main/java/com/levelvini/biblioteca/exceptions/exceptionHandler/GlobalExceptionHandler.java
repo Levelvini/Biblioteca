@@ -18,19 +18,19 @@ import java.util.Map;
 public class GlobalExceptionHandler {
 
     @ExceptionHandler(Exception.class)
-    public ResponseEntity<ErroResponse> Exception(Exception ex){
+    public ResponseEntity<ErroResponse> Exception(Exception ex) {
         ErroResponse erro = new ErroResponse(LocalDateTime.now(), ex.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR.toString());
-        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(erro); 
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(erro);
     }
 
     @ExceptionHandler(HttpMessageNotReadableException.class)
-    public ResponseEntity<ErroResponse> handlerHttpMessageNorReadablrException(HttpMessageNotReadableException ex){
-        ErroResponse erro = new ErroResponse(LocalDateTime.now(),"Erro na leitura do Json",HttpStatus.BAD_REQUEST.toString());
+    public ResponseEntity<ErroResponse> handlerHttpMessageNorReadablrException(HttpMessageNotReadableException ex) {
+        ErroResponse erro = new ErroResponse(LocalDateTime.now(), "Erro na leitura do Json", HttpStatus.BAD_REQUEST.toString());
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(erro);
     }
 
     @ExceptionHandler(ResourceNotFoundException.class)
-    public ResponseEntity<ErroResponse> handlerResourseNotFoundException(ResourceNotFoundException ex){
+    public ResponseEntity<ErroResponse> handlerResourseNotFoundException(ResourceNotFoundException ex) {
         ErroResponse erro = new ErroResponse(LocalDateTime.now(), ex.getMessage(), HttpStatus.NOT_FOUND.toString());
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(erro);
     }

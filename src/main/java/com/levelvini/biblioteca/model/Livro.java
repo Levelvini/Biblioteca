@@ -5,12 +5,14 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.io.Serializable;
+
 @Entity
 @Table(name = "livros")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Livro {
+public class Livro implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

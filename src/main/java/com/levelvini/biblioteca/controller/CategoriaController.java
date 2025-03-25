@@ -1,6 +1,6 @@
 package com.levelvini.biblioteca.controller;
 
-import com.levelvini.biblioteca.model.Categoria;
+
 import com.levelvini.biblioteca.model.DTO.CategoriaDTO;
 import com.levelvini.biblioteca.service.CategoriaService;
 import jakarta.validation.Valid;

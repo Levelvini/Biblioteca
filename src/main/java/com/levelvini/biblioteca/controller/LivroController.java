@@ -1,10 +1,8 @@
 package com.levelvini.biblioteca.controller;
 
 import com.levelvini.biblioteca.model.DTO.LivroDTO;
-import com.levelvini.biblioteca.model.Livro;
 import com.levelvini.biblioteca.service.LivroService;
 import jakarta.validation.Valid;
-import jakarta.websocket.server.PathParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -13,7 +11,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping
+@RequestMapping(value = "/livro")
 public class LivroController {
 
     LivroService livroService;
@@ -44,7 +42,7 @@ public class LivroController {
     @PostMapping(value = "/{id}")
     public ResponseEntity<String> update(@PathVariable Long id,@Valid @RequestBody LivroDTO livroDTO){
         LivroDTO livroUpdated = livroService.update(id, livroDTO);
-        return ResponseEntity.ok("O livro " + livroUpdated.name() + " foi atualizado!");
+        return ResponseEntity.ok("O livro " + livroUpdated.getName() + " foi atualizado!");
     }
 
     @DeleteMapping(value = "/{id}")

@@ -1,19 +1,21 @@
 package com.levelvini.biblioteca.model.DTO;
 
-import com.levelvini.biblioteca.model.Categoria;
 import com.levelvini.biblioteca.model.Livro;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
+import lombok.*;
 
+import java.io.Serializable;
 import java.util.List;
 
-public record CategoriaDTO(
-        Long id,
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+public class CategoriaDTO implements Serializable {
+        private Long id;
         @NotBlank(message = "o nome deve ser preenchido")
         @Size(min = 3,message = "o nome deve conter mais de 3 caracteres")
-        String name,
-        List<Livro> livros) {
-//        public Categoria toCategoria(CategoriaDTO categoriaDTO){
-//                return new Categoria(id,name,livros);
-//        }
+        private String name;
+        @Setter(value = AccessLevel.NONE)
+        List<Livro> livros;
 }

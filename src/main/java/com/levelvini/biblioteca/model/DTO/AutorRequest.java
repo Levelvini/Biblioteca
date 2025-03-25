@@ -2,16 +2,24 @@ package com.levelvini.biblioteca.model.DTO;
 
 import com.levelvini.biblioteca.model.Livro;
 import jakarta.validation.constraints.NotBlank;
+import lombok.*;
 
+import java.io.Serializable;
 import java.util.List;
 
-public record AutorRequest(
-        Long id,
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+public class AutorRequest implements Serializable {
+        Long id;
         @NotBlank(message = "é obrigatória a inserção do nome")
-        String name,
+        private String name;
         //@CPf
         @NotBlank(message = "é obrigatória a inserção do CPF")
-        String CPF,
-        Integer age,
-        List<Livro> livros) {
+        private String CPF;
+        private Integer age;
+        @Setter(value = AccessLevel.NONE)
+        private List<Livro> livros;
+
 }
+

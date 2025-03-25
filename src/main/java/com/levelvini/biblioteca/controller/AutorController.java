@@ -43,7 +43,7 @@ public class AutorController {
     @PutMapping(value = "/{id}")
     public ResponseEntity<String> update(@PathVariable Long id, @Valid @RequestBody AutorRequest autorRequest){
         AutorResponse autor = autorService.update(id, autorRequest);
-        return ResponseEntity.ok("O autor" + autor.name() + " foi atualizado!");
+        return ResponseEntity.ok("O autor" + autor.getName() + " foi atualizado!");
     }
 
     @DeleteMapping(value = "/{id}")

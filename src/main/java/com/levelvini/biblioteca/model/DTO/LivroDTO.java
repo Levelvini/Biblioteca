@@ -2,19 +2,22 @@ package com.levelvini.biblioteca.model.DTO;
 
 import com.levelvini.biblioteca.model.Autor;
 import com.levelvini.biblioteca.model.Categoria;
-import com.levelvini.biblioteca.model.Livro;
-import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
-public record LivroDTO(
+import java.io.Serializable;
 
-        Long id,
-        @NotBlank(message = "o campo nome não pode ser vazio")
-        @Size(min = 3,message = "a quantidade minima de caracteres deve ser igual ou maior que 3")
-        String name,
-        Autor autor,
-        Categoria categoria) {
-//        public Livro toLivro(LivroDTO livroDTO){
-//                return new Livro(id,name,autor,categoria);
-//        }
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+public class LivroDTO implements Serializable{
+                Long id;
+                @NotEmpty(message = "o campo nome não pode ser vazio")
+                @Size(min = 3,message = "a quantidade minima de caracteres deve ser igual ou maior que 3")
+                String name;
+                Autor autor;
+                Categoria categoria;
 }
