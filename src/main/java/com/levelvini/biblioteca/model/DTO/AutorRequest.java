@@ -20,6 +20,5 @@ public class AutorRequest implements Serializable {
         private Integer age;
         @Setter(value = AccessLevel.NONE)
         private List<Livro> livros;
-
 }
 
