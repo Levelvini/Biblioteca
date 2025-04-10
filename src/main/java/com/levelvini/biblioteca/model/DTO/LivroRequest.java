@@ -12,7 +12,7 @@ import java.io.Serializable;
 
 @AllArgsConstructor
 @NoArgsConstructor
-public class LivroDTO implements Serializable{
+public class LivroRequest implements Serializable{
                 Long id;
                 @NotEmpty(message = "o campo nome não pode ser vazio")
                 @Size(min = 3,message = "a quantidade minima de caracteres deve ser igual ou maior que 3")
@@ -20,32 +20,19 @@ public class LivroDTO implements Serializable{
                 Autor autor;
                 Categoria categoria;
 
-    public Long getId() {
-        return id;
-    }
 
     public void setId(Long id) {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
-    }
 
     public void setName(String name) {
         this.name = name;
     }
 
-    public Autor getAutor() {
-        return autor;
-    }
 
     public void setAutor(Autor autor) {
         this.autor = autor;
-    }
-
-    public Categoria getCategoria() {
-        return categoria;
     }
 
     public void setCategoria(Categoria categoria) {
