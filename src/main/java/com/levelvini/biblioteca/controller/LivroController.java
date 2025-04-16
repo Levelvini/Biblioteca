@@ -1,6 +1,7 @@
 package com.levelvini.biblioteca.controller;
 
-import com.levelvini.biblioteca.model.DTO.LivroDTO;
+import com.levelvini.biblioteca.model.DTO.LivroRequest;
+import com.levelvini.biblioteca.model.DTO.LivroResponse;
 import com.levelvini.biblioteca.service.LivroService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,32 +17,31 @@ public class LivroController {
 
     LivroService livroService;
 
-    @Autowired
     public LivroController(LivroService livroService) {
         this.livroService = livroService;
     }
 
     @GetMapping
-    public ResponseEntity<List<LivroDTO>> fingAll(){
-        List<LivroDTO> livroDTO = livroService.getAll();
+    public ResponseEntity<List<LivroResponse>> fingAll(){
+        List<LivroResponse> livroDTO = livroService.getAll();
         return ResponseEntity.ok(livroDTO);
     }
 
     @GetMapping(value = "/{id}")
-    public ResponseEntity<Optional<LivroDTO>> findById(@PathVariable Long id){
-        Optional<LivroDTO> livroDTO = livroService.getById(id);
+    public ResponseEntity<Optional<LivroResponse>> findById(@PathVariable Long id){
+        Optional<LivroResponse> livroDTO = livroService.getById(id);
         return ResponseEntity.ok(livroDTO);
     }
 
     @PostMapping
-    public ResponseEntity<String> post(@Valid @RequestBody LivroDTO livroDTO){
-        livroService.save(livroDTO);
+    public ResponseEntity<String> post(@Valid @RequestBody LivroRequest livroRequest){
+        livroService.save(livroRequest);
         return ResponseEntity.ok("o livro foi adicionado com sucesso");
     }
 
-    @PostMapping(value = "/{id}")
-    public ResponseEntity<String> update(@PathVariable Long id,@Valid @RequestBody LivroDTO livroDTO){
-        LivroDTO livroUpdated = livroService.update(id, livroDTO);
+    @PutMapping(value = "/{id}")
+    public ResponseEntity<String> update(@PathVariable Long id,@Valid @RequestBody LivroRequest livroRequest){
+        LivroResponse livroUpdated = livroService.update(id, livroRequest);
         return ResponseEntity.ok("O livro " + livroUpdated.getName() + " foi atualizado!");
     }
 
@@ -50,4 +50,5 @@ public class LivroController {
         livroService.delete(id);
         return ResponseEntity.ok("Deletado com sucesso!");
     }
+
 }

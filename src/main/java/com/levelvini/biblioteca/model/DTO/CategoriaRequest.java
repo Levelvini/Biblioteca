@@ -11,7 +11,7 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class CategoriaDTO implements Serializable {
+public class CategoriaRequest implements Serializable {
         private Long id;
         @NotBlank(message = "o nome deve ser preenchido")
         @Size(min = 3,message = "o nome deve conter mais de 3 caracteres")

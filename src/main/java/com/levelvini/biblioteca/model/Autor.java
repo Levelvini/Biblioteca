@@ -28,5 +28,6 @@ public class Autor implements Serializable{
 
     @OneToMany(mappedBy = "autor")
     @Setter(AccessLevel.NONE)
-    private List<Livro> livros;
+    public List<Livro> livros;
+
 }

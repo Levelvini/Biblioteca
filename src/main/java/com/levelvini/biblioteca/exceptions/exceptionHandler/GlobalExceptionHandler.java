@@ -9,6 +9,7 @@ import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 
 import java.time.LocalDateTime;
 import java.util.HashMap;
@@ -38,6 +39,11 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(EmptyDataException.class)
     public ResponseEntity<ErroResponse> handlerEmptyDataException(EmptyDataException ex){
         ErroResponse erro = new ErroResponse(LocalDateTime.now(), ex.getMessage(), HttpStatus.NOT_FOUND.toString());
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(erro);
+    }
+    @ExceptionHandler(MethodArgumentTypeMismatchException.class)
+    public ResponseEntity<ErroResponse> handlerMethodArgumentTypeMismatchException(MethodArgumentTypeMismatchException ex){
+        ErroResponse erro = new ErroResponse(LocalDateTime.now(), "Verifique o endereço de request", HttpStatus.NOT_FOUND.toString());
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(erro);
     }
     //EmptyDataException é desnecessária, podendo ser substituída pelo ResourseNotFoundException! o Uso é para fins de aprendizado!

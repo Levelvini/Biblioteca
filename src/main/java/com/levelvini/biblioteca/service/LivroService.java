@@ -2,7 +2,8 @@ package com.levelvini.biblioteca.service;
 
 import com.levelvini.biblioteca.exceptions.EmptyDataException;
 import com.levelvini.biblioteca.exceptions.ResourceNotFoundException;
-import com.levelvini.biblioteca.model.DTO.LivroDTO;
+import com.levelvini.biblioteca.model.DTO.LivroRequest;
+import com.levelvini.biblioteca.model.DTO.LivroResponse;
 import com.levelvini.biblioteca.model.Livro;
 import com.levelvini.biblioteca.repository.LivroRepository;
 import jakarta.transaction.Transactional;
@@ -20,40 +21,39 @@ public class LivroService {
     public LivroRepository livroRepository;
     public ModelMapper modelMapper;
 
-    @Autowired
     public LivroService(LivroRepository livroRepository, ModelMapper modelMapper) {
         this.livroRepository = livroRepository;
         this.modelMapper = modelMapper;
     }
 
     @Transactional
-    public List<LivroDTO> getAll(){
+    public List<LivroResponse> getAll(){
         List<Livro> livros = livroRepository.findAll();
         if (livros.isEmpty()){
             throw new EmptyDataException("você ainda não possui livros cadastrados");
         }else {
-            return Collections.singletonList(modelMapper.map(livros, LivroDTO.class));
+            return Collections.singletonList(modelMapper.map(livros, LivroResponse.class));
         }
     }
 
     @Transactional
-   public Optional<LivroDTO> getById(Long id){
+   public Optional<LivroResponse> getById(Long id){
        Livro livro = livroRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("o livro não pôde ser encontrado"));
-       return Optional.ofNullable(modelMapper.map(livro, LivroDTO.class));
+       return Optional.ofNullable(modelMapper.map(livro, LivroResponse.class));
    }
 
    @Transactional
-   public Livro save(LivroDTO livroDTO){
-     Livro livro = modelMapper.map(livroDTO, Livro.class);
+   public Livro save(LivroRequest livroRequest){
+     Livro livro = modelMapper.map(livroRequest, Livro.class);
      return livroRepository.save(livro);
    }
 
    @Transactional
-   public LivroDTO update(Long id,LivroDTO livroDTO){
+   public LivroResponse update(Long id,LivroRequest livroRequest){
     Livro livro = livroRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("O livro não pode ser encontrado"));
-    modelMapper.map(livroDTO, livro);
+    modelMapper.map(livroRequest, livro);
     livro = livroRepository.save(livro);
-    return modelMapper.map(livro,LivroDTO.class);
+    return modelMapper.map(livro,LivroResponse.class);
     }
 
     @Transactional
@@ -61,7 +61,4 @@ public class LivroService {
         Livro livro = livroRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("o livro informado não existe"));
         livroRepository.delete(livro);
     }
-
-
-
 }

@@ -17,7 +17,6 @@ public class AutorController {
 
     public AutorService autorService;
 
-    @Autowired
     public AutorController(AutorService autorService) {
         this.autorService = autorService;
     }

@@ -1,50 +1,36 @@
 package com.levelvini.biblioteca.model.DTO;
 
+import com.levelvini.biblioteca.model.Autor;
 import com.levelvini.biblioteca.model.Livro;
 import lombok.*;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
 public class AutorResponse implements Serializable{
     private Long id;
     private String name;
     private int age;
     @Setter(value = AccessLevel.NONE)
-    private List<Livro> livros;
+    List<Long> livrosId;
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
+    public AutorResponse(Long id, String name, int age, List<Long> livros) {
         this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
         this.name = name;
-    }
-
-    public int getAge() {
-        return age;
-    }
-
-    public void setAge(int age) {
         this.age = age;
+        this.livrosId = livros;
+       // this.livrosId = livros.stream().map(Livro::getId).collect(Collectors.toList());
     }
 
-    public List<Livro> getLivros() {
-        return livros;
-    }
-
-    public void setLivros(List<Livro> livros) {
-        this.livros = livros;
+    public static AutorResponse toAutorResponse(Autor autor){
+        return new AutorResponse(
+                autor.getId(),
+                autor.getName(),
+                autor.getAge(),
+                autor.getLivros().stream().map(Livro::getId).collect(Collectors.toList())
+        );
     }
 }
