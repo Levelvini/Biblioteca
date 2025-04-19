@@ -37,15 +37,17 @@ public class GlobalExceptionHandler {
     }
 
     @ExceptionHandler(EmptyDataException.class)
-    public ResponseEntity<ErroResponse> handlerEmptyDataException(EmptyDataException ex){
+    public ResponseEntity<ErroResponse> handlerEmptyDataException(EmptyDataException ex) {
         ErroResponse erro = new ErroResponse(LocalDateTime.now(), ex.getMessage(), HttpStatus.NOT_FOUND.toString());
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(erro);
     }
+
     @ExceptionHandler(MethodArgumentTypeMismatchException.class)
-    public ResponseEntity<ErroResponse> handlerMethodArgumentTypeMismatchException(MethodArgumentTypeMismatchException ex){
+    public ResponseEntity<ErroResponse> handlerMethodArgumentTypeMismatchException(MethodArgumentTypeMismatchException ex) {
         ErroResponse erro = new ErroResponse(LocalDateTime.now(), "Verifique o endereço de request", HttpStatus.NOT_FOUND.toString());
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(erro);
     }
+
     //EmptyDataException é desnecessária, podendo ser substituída pelo ResourseNotFoundException! o Uso é para fins de aprendizado!
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<Map<String, String>> handleValidationException(MethodArgumentNotValidException ex) {

@@ -11,20 +11,19 @@ import java.util.List;
 @Entity
 @Table(name = "autores")
 @Data
-@NoArgsConstructor
 @AllArgsConstructor
-public class Autor implements Serializable{
+public class Autor implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private final Long id;
 
     private String name;
 
     //@CPF
     private String CPF;
 
-    private Integer age;
+    private int age;
 
     @OneToMany(mappedBy = "autor")
     @Setter(AccessLevel.NONE)

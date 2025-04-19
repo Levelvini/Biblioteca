@@ -11,13 +11,13 @@ import java.io.Serializable;
 
 @AllArgsConstructor
 @NoArgsConstructor
-public class LivroRequest implements Serializable{
-                Long id;
-                @NotEmpty(message = "o campo nome não pode ser vazio")
-                @Size(min = 3,message = "a quantidade minima de caracteres deve ser igual ou maior que 3")
-                String name;
-                Autor autor;
-                Categoria categoria;
+public class LivroRequest implements Serializable {
+    Long id;
+    @NotEmpty(message = "o campo nome não pode ser vazio")
+    @Size(min = 3, message = "a quantidade minima de caracteres deve ser igual ou maior que 3")
+    String name;
+    Autor autor;
+    Categoria categoria;
 
 
     public void setId(Long id) {

@@ -12,10 +12,10 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class CategoriaRequest implements Serializable {
-        private Long id;
-        @NotBlank(message = "o nome deve ser preenchido")
-        @Size(min = 3,message = "o nome deve conter mais de 3 caracteres")
-        private String name;
-        @Setter(value = AccessLevel.NONE)
-        List<Livro> livros;
+    private Long id;
+    @NotBlank(message = "o nome deve ser preenchido")
+    @Size(min = 3, message = "o nome deve conter mais de 3 caracteres")
+    private String name;
+    @Setter(value = AccessLevel.NONE)
+    List<Livro> livros;
 }

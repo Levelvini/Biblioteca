@@ -10,7 +10,6 @@ import java.io.Serializable;
 @Entity
 @Table(name = "livros")
 @Data
-@NoArgsConstructor
 @AllArgsConstructor
 public class Livro implements Serializable {
 
@@ -18,7 +17,7 @@ public class Livro implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String name;
+    private final String name;
 
     @ManyToOne
     @JoinColumn(name = "autor-id")

@@ -11,14 +11,14 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class AutorRequest implements Serializable {
-        Long id;
-        @NotBlank(message = "é obrigatória a inserção do nome")
-        private String name;
-        //@CPf
-        @NotBlank(message = "é obrigatória a inserção do CPF")
-        private String CPF;
-        private Integer age;
-        @Setter(value = AccessLevel.NONE)
-        private List<Livro> livros;
+    Long id;
+    @NotBlank(message = "é obrigatória a inserção do nome")
+    private String name;
+    //@CPf
+    @NotBlank(message = "é obrigatória a inserção do CPF")
+    private String CPF;
+    private int age;
+    @Setter(value = AccessLevel.NONE)
+    private List<Livro> livros;
 }
 

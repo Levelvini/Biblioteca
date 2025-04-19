@@ -10,7 +10,7 @@ import java.util.stream.Collectors;
 
 @Data
 @NoArgsConstructor
-public class AutorResponse implements Serializable{
+public class AutorResponse implements Serializable {
     private Long id;
     private String name;
     private int age;
@@ -22,10 +22,9 @@ public class AutorResponse implements Serializable{
         this.name = name;
         this.age = age;
         this.livrosId = livros;
-       // this.livrosId = livros.stream().map(Livro::getId).collect(Collectors.toList());
     }
 
-    public static AutorResponse toAutorResponse(Autor autor){
+    public static AutorResponse toAutorResponse(Autor autor) {
         return new AutorResponse(
                 autor.getId(),
                 autor.getName(),

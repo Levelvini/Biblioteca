@@ -9,13 +9,12 @@ import java.util.List;
 @Entity
 @Table(name = "categorias")
 @Data
-@NoArgsConstructor
 @AllArgsConstructor
 public class Categoria implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long Id;
+    private final Long Id;
 
     private String name;
 

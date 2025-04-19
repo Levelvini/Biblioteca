@@ -21,7 +21,7 @@ public class CategoriaResponse {
         this.livrosId = livrosId;
     }
 
-    public static CategoriaResponse toCategoriaResponse(Categoria categoria){
+    public static CategoriaResponse toCategoriaResponse(Categoria categoria) {
         return new CategoriaResponse(categoria.getId(),
                 categoria.getName(),
                 categoria.getLivros().stream().map(Livro::getId).collect(Collectors.toList()));

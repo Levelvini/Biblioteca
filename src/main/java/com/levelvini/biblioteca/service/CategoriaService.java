@@ -10,7 +10,6 @@ import jakarta.transaction.Transactional;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
-import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -18,48 +17,48 @@ import java.util.stream.Collectors;
 @Service
 public class CategoriaService {
 
-    public CategoriaRepository categoriaRepository;
+    public CategoriaRepository repository;
     public ModelMapper modelMapper;
 
     public CategoriaService(CategoriaRepository categoriaRepository, ModelMapper modelMapper) {
-        this.categoriaRepository = categoriaRepository;
+        this.repository = categoriaRepository;
         this.modelMapper = modelMapper;
     }
 
     @Transactional
-    public List<CategoriaResponse> findAll(){
-        List<Categoria> categorias = categoriaRepository.findAll();
+    public List<CategoriaResponse> findAll() {
+        List<Categoria> categorias = repository.findAll();
         List<CategoriaResponse> categoriaResponseList = categorias.stream().map(CategoriaResponse::toCategoriaResponse).collect(Collectors.toList());
-        if (categorias.isEmpty()){
+        if (categorias.isEmpty()) {
             throw new EmptyDataException("você ainda não possui categorias cadastradas");
-        }else {
+        } else {
             return categoriaResponseList;
         }
     }
 
     @Transactional
-    public Optional<CategoriaResponse> findById(Long id){
-       Categoria categoria = categoriaRepository.findById(id).orElseThrow(()-> new ResourceNotFoundException("a categoria não pôde ser encontrada"));
-       return Optional.of(CategoriaResponse.toCategoriaResponse(categoria));
+    public Optional<CategoriaResponse> findById(Long id) {
+        Categoria categoria = repository.findById(id).orElseThrow(() -> new ResourceNotFoundException("a categoria não pôde ser encontrada"));
+        return Optional.of(CategoriaResponse.toCategoriaResponse(categoria));
     }
 
     @Transactional
-    public CategoriaResponse save(CategoriaRequest categoriaRequest){
-        Categoria categoria = categoriaRepository.save(modelMapper.map(categoriaRequest, Categoria.class));
+    public CategoriaResponse save(CategoriaRequest categoriaRequest) {
+        Categoria categoria = repository.save(modelMapper.map(categoriaRequest, Categoria.class));
         return CategoriaResponse.toCategoriaResponse(categoria);
     }
 
     @Transactional
-    public CategoriaResponse update(Long id, CategoriaRequest categoriaRequest){
-        Categoria categoria = categoriaRepository.findById(id).orElseThrow(()-> new ResourceNotFoundException("o objeto a ser atualiza não foi encontrado"));
+    public CategoriaResponse update(Long id, CategoriaRequest categoriaRequest) {
+        Categoria categoria = repository.findById(id).orElseThrow(() -> new ResourceNotFoundException("o objeto a ser atualiza não foi encontrado"));
         modelMapper.map(categoriaRequest, categoria);
-        Categoria categoriaUpdated = categoriaRepository.save(categoria);
+        Categoria categoriaUpdated = repository.save(categoria);
         return CategoriaResponse.toCategoriaResponse(categoriaUpdated);
     }
 
     @Transactional
-    public void delete(Long id){
-        Categoria categoria = categoriaRepository.findById(id).orElseThrow(()-> new ResourceNotFoundException("a categoria não foi encontrada"));
-        categoriaRepository.delete(categoria);
+    public void delete(Long id) {
+        Categoria categoria = repository.findById(id).orElseThrow(() -> new ResourceNotFoundException("a categoria não foi encontrada"));
+        repository.delete(categoria);
     }
 }

@@ -15,39 +15,37 @@ import java.util.Optional;
 @RequestMapping(value = "/categoria")
 public class CategoriaController {
 
-    public CategoriaService categoriaService;
+    public CategoriaService Service;
 
     public CategoriaController(CategoriaService categoriaService) {
-        this.categoriaService = categoriaService;
+        this.Service = categoriaService;
     }
 
     @GetMapping()
-    public ResponseEntity<List<CategoriaResponse>> findAll(){
-        List<CategoriaResponse> categoria = categoriaService.findAll();
-        return ResponseEntity.ok(categoria);
+    public ResponseEntity<List<CategoriaResponse>> findAll() {
+        return ResponseEntity.ok(Service.findAll());
     }
 
     @GetMapping(value = "/{id}")
-    public ResponseEntity<Optional<CategoriaResponse>> findById(@PathVariable Long id){
-        Optional<CategoriaResponse> categoria = categoriaService.findById(id);
-        return ResponseEntity.ok(categoria);
+    public ResponseEntity<Optional<CategoriaResponse>> findById(@PathVariable Long id) {
+        return ResponseEntity.ok(Service.findById(id));
     }
 
     @PostMapping
-    public ResponseEntity<String> post(@Valid @RequestBody CategoriaRequest categoriaRequest){
-        categoriaService.save(categoriaRequest);
+    public ResponseEntity<String> post(@Valid @RequestBody CategoriaRequest categoriaRequest) {
+        Service.save(categoriaRequest);
         return ResponseEntity.ok("Categoria salva com sucesso!!");
     }
 
     @PutMapping(value = "/{id}")
-    public ResponseEntity<String> update(@PathVariable Long id,@Valid @RequestBody CategoriaRequest categoriaRequest){
-        CategoriaResponse categoria = categoriaService.update(id, categoriaRequest);
+    public ResponseEntity<String> update(@PathVariable Long id, @Valid @RequestBody CategoriaRequest categoriaRequest) {
+        CategoriaResponse categoria = Service.update(id, categoriaRequest);
         return ResponseEntity.ok("A categoria foi atualizada!!");
     }
 
     @DeleteMapping(value = "/{id}")
-    public ResponseEntity<String> delete(@PathVariable Long id){
-        categoriaService.delete(id);
+    public ResponseEntity<String> delete(@PathVariable Long id) {
+        Service.delete(id);
         return ResponseEntity.ok("Deletado com sucesso!!");
     }
 }
