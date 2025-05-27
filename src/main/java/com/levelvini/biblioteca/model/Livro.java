@@ -11,13 +11,14 @@ import java.io.Serializable;
 @Table(name = "livros")
 @Data
 @AllArgsConstructor
+@NoArgsConstructor
 public class Livro implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private final String name;
+    private String name;
 
     @ManyToOne
     @JoinColumn(name = "autor-id")

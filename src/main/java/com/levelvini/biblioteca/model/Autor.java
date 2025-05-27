@@ -12,11 +12,12 @@ import java.util.List;
 @Table(name = "autores")
 @Data
 @AllArgsConstructor
+@NoArgsConstructor
 public class Autor implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private final Long id;
+    private Long id;
 
     private String name;
 
